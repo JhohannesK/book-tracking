@@ -42,3 +42,35 @@ class BookRepository:
         if not row:
             return None
         return Book(id=row[0], title=row[1], status=row[2])
+    
+    def update(self, book_data: Book):
+        conn = get_connection()
+        cursor = conn.cursor()
+        cursor.execute("UPDATE book SET status = %s WHERE id = %s;", ( book_data.status, book_data.id))
+        conn.commit()
+        conn.close()
+        return book_data.id
+    
+    def books_to_read(self):
+        conn = get_connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT id, title, status FROM book WHERE status = 'to-read';")
+        books = [Book(id=row[0], title=row[1], status=row[2]) for row in cursor.fetchall()]
+        conn.close()
+        return books
+    
+    def books_in_progress(self):
+        conn = get_connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT id, title, status FROM public.book WHERE status = 'in-progress';")
+        books = [Book(id=row[0], title=row[1], status=row[2]) for row in cursor.fetchall()]
+        conn.close()
+        return books
+    
+    def books_completed(self):
+        conn = get_connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT id, title, status FROM book WHERE status = 'completed';")
+        books = [Book(id=row[0], title=row[1], status=row[2]) for row in cursor.fetchall()]
+        conn.close()
+        return books
