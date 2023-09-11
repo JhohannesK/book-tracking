@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import React from 'react';
 import bookImage from '../assets/book.jpg';
+import { BookRepository } from '@/app/types';
 
 const BookCard = ({
 	book,
