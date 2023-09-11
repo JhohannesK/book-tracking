@@ -1,12 +1,18 @@
 'use client';
 import BookCard from '@/components/Card';
 import React, { useEffect } from 'react';
+import { BookRepository } from '../types';
 
 const InProgressPage = () => {
 	const [Books, setBooks] = React.useState<BookRepository[]>([]);
 	useEffect(() => {
 		async function getBooks(): Promise<BookRepository[]> {
-			const res = await fetch('http://localhost:8000/books/in-progress');
+			const res = await fetch('http://localhost:8000/books/in-progress', {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
 			const data = await res.json();
 			setBooks(data);
 			return data;

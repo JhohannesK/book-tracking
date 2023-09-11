@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import { DialogDefault } from '@/components/Dialog';
 import BookCard from '@/components/Card';
+import { BookRepository, headers } from '../types';
 
 const AllBooks = () => {
 	const [Books, setBooks] = React.useState<BookRepository[]>([]);
@@ -11,7 +12,10 @@ const AllBooks = () => {
 	useEffect(() => {
 		async function getBooks(): Promise<BookRepository[]> {
 			try {
-				const res = await fetch('http://localhost:8000/books/');
+				const res = await fetch('http://localhost:8000/books/', {
+					method: 'GET',
+					headers
+				});
 				const data = await res.json();
 				setBooks(data);
 				return data;
