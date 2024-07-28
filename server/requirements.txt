@@ -3,7 +3,7 @@ anyio==3.7.1
 certifi==2024.7.4
 click==8.1.7
 colorama==0.4.6
-fastapi==0.101.1
+fastapi==0.109.1
 h11==0.14.0
 httpcore==0.17.3
 httpx==0.24.1
